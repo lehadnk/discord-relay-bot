@@ -8,6 +8,7 @@ const syncChannels = [
     'cross-chat',
     'xmog-contest',
     'cross-addons-ui',
+    'crosschat-moder'
 ];
 
 const dbAdapter = new DbAdapter(new Sqlite3.Database('database.db3'));
