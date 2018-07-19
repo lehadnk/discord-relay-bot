@@ -1,0 +1,5 @@
+class AdminList {
+    constructor(fileName) {
+        
+    }
+}
