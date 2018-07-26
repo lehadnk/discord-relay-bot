@@ -49,7 +49,7 @@ module.exports = {
         return msg.author.displayAvatarURL;
     },
 
-    getNickname(msg) {
+    getMsgAuthorName(msg) {
         if (msg.member === 'undefined' || msg.member === null) {
             return msg.author.username;
         }

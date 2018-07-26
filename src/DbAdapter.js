@@ -30,7 +30,10 @@ class DbAdapter {
     }
 
     run(sql, placeholders) {
-        this.db.run(sql, placeholders);
+        return new Promise((resolve) => {
+            this.db.run(sql, placeholders);
+            resolve();
+        });
     }
 }
 
