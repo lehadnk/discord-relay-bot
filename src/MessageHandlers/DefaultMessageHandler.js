@@ -2,12 +2,13 @@ const Discord = require("discord.js");
 const ChatMessageHelpers = require("../ChatMessageHelpers");
 
 class DefaultMessageHandler {
-    constructor(client, syncChannels, bansRepository)
+    constructor(client, syncChannels, bansRepository, strictMode)
     {
         this.client = client;
         this.syncChannels = syncChannels;
         this.client.on('message', this.handle.bind(this));
         this.bansRepository = bansRepository;
+        this.strictMode = strictMode;
     }
 
     handle(msg)
@@ -18,6 +19,9 @@ class DefaultMessageHandler {
 
         // Is user in the ban list?
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
+        let joinedAt = new Date(msg.author.lastMessage.member.joinedAt).getTime() / 1000;
+        let now = +new Date / 1000;
+        if (now - joinedAt < 7 * 86400) return;
 
         this.syncMessage(msg);
     }

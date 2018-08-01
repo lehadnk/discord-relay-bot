@@ -76,6 +76,10 @@ class AdminMessageHandler {
                 ChatMessageHelpers.temporaryMessage(msg.channel, list, 25000);
             });
         }
+
+        if (msg.content.match(/^\/strictmode$/)) {
+
+        }
     }
 }
 
