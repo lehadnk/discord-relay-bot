@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 const ChatMessageHelpers = require("../ChatMessageHelpers");
+const FloodProtection = require("../FloodProtection");
 
 class DefaultMessageHandler {
     constructor(client, syncChannels, bansRepository, strictMode)
@@ -9,6 +10,7 @@ class DefaultMessageHandler {
         this.client.on('message', this.handle.bind(this));
         this.bansRepository = bansRepository;
         this.strictMode = strictMode;
+        this.floodProtector = new FloodProtection();
     }
 
     handle(msg)
@@ -19,11 +21,19 @@ class DefaultMessageHandler {
 
         // Is user in the ban list?
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
+
+        // Is this user a newcomer?
         let joinedAt = new Date(msg.author.lastMessage.member.joinedAt).getTime() / 1000;
         let now = +new Date / 1000;
         if (now - joinedAt < 7 * 86400) return;
 
+        if (!this.floodProtector.canWrite(msg.author.id)) {
+            msg.delete().reject(() => console.log("Missing message management permissons in " + msg.guild.name));
+            return;
+        }
+
         this.syncMessage(msg);
+        this.floodProtector.countMessage(msg);
     }
 
     syncMessage(msg)
