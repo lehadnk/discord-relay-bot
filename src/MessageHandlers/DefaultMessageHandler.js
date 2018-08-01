@@ -25,7 +25,7 @@ class DefaultMessageHandler {
         // Is this user a newcomer?
         let joinedAt = new Date(msg.author.lastMessage.member.joinedAt).getTime() / 1000;
         let now = +new Date / 1000;
-        if (now - joinedAt < 7 * 86400) return;
+        if (now - joinedAt < 86400) return;
 
         if (!this.floodProtector.canWrite(msg.author.id)) {
             msg.delete().catch(() => console.log("Missing message management permissons in " + msg.guild.name));
