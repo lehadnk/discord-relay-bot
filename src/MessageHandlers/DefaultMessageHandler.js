@@ -28,7 +28,7 @@ class DefaultMessageHandler {
         if (now - joinedAt < 7 * 86400) return;
 
         if (!this.floodProtector.canWrite(msg.author.id)) {
-            msg.delete().reject(() => console.log("Missing message management permissons in " + msg.guild.name));
+            msg.delete().catch(() => console.log("Missing message management permissons in " + msg.guild.name));
             return;
         }
 
