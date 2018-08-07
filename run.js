@@ -9,7 +9,7 @@ const syncChannels = [
     'xmog-contest',
     'cross-addons-ui',
     'crosschat-moder',
-    'cross-key-tactic',
+    'cross-key-tactics',
     'cross-leveling-bfa',
 ];
 
