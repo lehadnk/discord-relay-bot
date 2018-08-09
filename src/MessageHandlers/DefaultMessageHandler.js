@@ -28,6 +28,7 @@ class DefaultMessageHandler {
             msg.author.sendMessage("К сожалению, мы были вынуждены включить защиту от спама в кросс-каналах. Поскольку вы недавно пришли на сервер, вам надо подождать немного времени прежде чем у вас появится возможность писать.");
             this.msgDeleteLogger.log(msg, "User is a newcomer");
             msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
+            return;
         }
 
         if (!this.floodProtector.canWrite(msg.author.id) && msg.channel.name !== 'crosschat-moder') {
