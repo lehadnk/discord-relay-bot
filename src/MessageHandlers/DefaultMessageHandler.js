@@ -1,16 +1,17 @@
 const Discord = require("discord.js");
 const ChatMessageHelpers = require("../ChatMessageHelpers");
-const FloodProtection = require("../FloodProtection");
+const FloodProtection = require("../Services/FloodProtection");
 
 class DefaultMessageHandler {
-    constructor(client, syncChannels, bansRepository, strictMode)
+    constructor(client, syncChannels, bansRepository, msgDeleteLogger)
     {
         this.client = client;
         this.syncChannels = syncChannels;
         this.client.on('message', this.handle.bind(this));
         this.bansRepository = bansRepository;
-        this.strictMode = strictMode;
+        //this.strictMode = strictMode;
         this.floodProtector = new FloodProtection();
+        this.msgDeleteLogger = msgDeleteLogger;
     }
 
     handle(msg)
@@ -23,17 +24,31 @@ class DefaultMessageHandler {
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
 
         // Is this user a newcomer?
-        let joinedAt = new Date(msg.author.lastMessage.member.joinedAt).getTime() / 1000;
-        let now = +new Date / 1000;
-        if (now - joinedAt < 86400) return;
+        if (this.isNewcomer(msg.author)) {
+            msg.author.sendMessage("К сожалению, мы были вынуждены включить защиту от спама в кросс-каналах. Поскольку вы недавно пришли на сервер, вам надо подождать немного времени прежде чем у вас появится возможность писать.");
+            this.msgDeleteLogger.log(msg, "User is a newcomer");
+            msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
+        }
 
         if (!this.floodProtector.canWrite(msg.author.id)) {
-            msg.delete().catch(() => console.log("Missing message management permissons in " + msg.guild.name));
+            this.msgDeleteLogger.log(msg, "Flood protection");
+            msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
             return;
         }
 
         this.syncMessage(msg);
         this.floodProtector.countMessage(msg);
+    }
+
+    isNewcomer(author)
+    {
+        if (author.lastMessage === null) {
+            return true;
+        }
+
+        let joinedAt = new Date(author.lastMessage.member.joinedAt).getTime() / 1000;
+        let now = +new Date / 1000;
+        return (now - joinedAt < 86400);
     }
 
     syncMessage(msg)

@@ -1,6 +1,6 @@
 const AdminListRepository = require("./Repositories/AdminListRepository");
 const BansRepository = require("./Repositories/BansRepository");
-const DiscordClient = require("./DiscordClient");
+const DiscordClient = require("./Services/DiscordClient");
 
 class App {
     constructor(syncChannels, dbAdapter) {

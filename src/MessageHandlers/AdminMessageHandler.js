@@ -1,12 +1,13 @@
 const ChatMessageHelpers = require("../ChatMessageHelpers");
 
 class AdminMessageHandler {
-    constructor(client, adminList, bansRepository)
+    constructor(client, adminList, bansRepository, msgDeleteLogger)
     {
         this.client = client;
         this.adminList = adminList;
         this.client.on('message', this.handle.bind(this));
         this.bansRepository = bansRepository;
+        this.msgDeleteLogger = msgDeleteLogger;
     }
 
     isAdmin(discordUserId)
@@ -31,7 +32,7 @@ class AdminMessageHandler {
             let reason = msgData.join(' ');
 
             this.bansRepository.ban(discordId, reason, msg.author.id, ChatMessageHelpers.getMsgAuthorName(msg));
-            msg.channel.send("User " + discordId + " was banned in crosschat channels by "+ChatMessageHelpers.getMsgAuthorName(msg) + ". Reason: " + reason);
+            msg.channel.send("User " + discordId + " was banned in crosschat channels by " + ChatMessageHelpers.getMsgAuthorName(msg) + ". Reason: " + reason);
             return;
         }
 
@@ -79,6 +80,21 @@ class AdminMessageHandler {
 
         if (msg.content.match(/^\/strictmode$/)) {
 
+        }
+
+        if (msg.content.match(/^\/lastdeletedinfo .*$/)) {
+            let msgData = msg.content.split(' ');
+
+            if (msgData.length !== 2) {
+                ChatMessageHelpers.temporaryMessage(msg.channel, "Wrong message format: should be /lastdeletedinfo <id>", 7000);
+            }
+
+            let msgDeleteReason = this.msgDeleteLogger.getLastDeletedMessageReason(msgData[1]);
+            if (msgDeleteReason !== null) {
+                ChatMessageHelpers.temporaryMessage(msg.channel, msgDeleteReason.message + ' ' + msgDeleteReason.reason, 20000);
+            } else {
+                ChatMessageHelpers.temporaryMessage(msg.channel, "Can't find a reason", 10000);
+            }
         }
     }
 }
