@@ -24,13 +24,13 @@ class DefaultMessageHandler {
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
 
         // Is this user a newcomer?
-        if (this.isNewcomer(msg.author)) {
+        if (this.isNewcomer(msg.author) && msg.channel.name !== 'crosschat-moder') {
             msg.author.sendMessage("К сожалению, мы были вынуждены включить защиту от спама в кросс-каналах. Поскольку вы недавно пришли на сервер, вам надо подождать немного времени прежде чем у вас появится возможность писать.");
             this.msgDeleteLogger.log(msg, "User is a newcomer");
             msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
         }
 
-        if (!this.floodProtector.canWrite(msg.author.id)) {
+        if (!this.floodProtector.canWrite(msg.author.id) && msg.channel.name !== 'crosschat-moder') {
             this.msgDeleteLogger.log(msg, "Flood protection");
             msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
             return;
