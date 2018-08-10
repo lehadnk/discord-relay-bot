@@ -48,7 +48,7 @@ class DefaultMessageHandler {
         }
 
         // old user - if he doesn't have joinedAt field this means the user joined long ago before it was added to API
-        if (author.member.joinedAt === undefined) {
+        if (author.lastMessage.member.joinedAt === undefined) {
             return false;
         }
 
