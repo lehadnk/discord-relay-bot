@@ -28,7 +28,7 @@ class DefaultMessageHandler {
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
         console.log('handle5');
 
-        Is this user a newcomer?
+        //Is this user a newcomer?
         if (this.isNewcomer(msg.author) && msg.channel.name !== 'crosschat-moder') {
             msg.author.sendMessage("К сожалению, мы были вынуждены включить защиту от спама в кросс-каналах. Поскольку вы недавно пришли на сервер, вам надо подождать немного времени прежде чем у вас появится возможность писать.");
             this.msgDeleteLogger.log(msg, "User is a newcomer");
