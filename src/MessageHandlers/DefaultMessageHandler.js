@@ -48,7 +48,7 @@ class DefaultMessageHandler {
         }
 
         // some users doesn't have it filled - why?
-        if (author.lastMessage.member === undefined) {
+        if (author.lastMessage.member === null) {
             return false;
         }
 
