@@ -16,17 +16,12 @@ class DefaultMessageHandler {
 
     handle(msg)
     {
-        console.log('handle1');
         if (msg.author.bot) return;
-        console.log('handle2');
         if (this.client.user.id === msg.author.id) return;
-        console.log('handle3');
         if (this.syncChannels.indexOf(msg.channel.name) === -1) return;
-        console.log('handle4');
 
         // Is user in the ban list?
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
-        console.log('handle5');
 
         //Is this user a newcomer?
         if (this.isNewcomer(msg.author) && msg.channel.name !== 'crosschat-moder') {
@@ -35,17 +30,14 @@ class DefaultMessageHandler {
             msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
             return;
         }
-        console.log('handle6');
 
         if (!this.floodProtector.canWrite(msg.author.id) && msg.channel.name !== 'crosschat-moder') {
             this.msgDeleteLogger.log(msg, "Flood protection");
             msg.delete().catch(() => console.log("Missing message management permissions in " + msg.guild.name));
             return;
         }
-        console.log('handle7');
 
         this.syncMessage(msg);
-        console.log('handle8');
         this.floodProtector.countMessage(msg);
     }
 
@@ -53,6 +45,11 @@ class DefaultMessageHandler {
     {
         if (author.lastMessage === null) {
             return true;
+        }
+
+        // old user - if he doesn't have joinedAt field this means the user joined long ago before it was added to API
+        if (author.member.joinedAt === undefined) {
+            return false;
         }
 
         let joinedAt = new Date(author.lastMessage.member.joinedAt).getTime() / 1000;
