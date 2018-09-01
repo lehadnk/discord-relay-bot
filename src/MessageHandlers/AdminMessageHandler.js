@@ -1,10 +1,10 @@
 const ChatMessageHelpers = require("../ChatMessageHelpers");
 
 class AdminMessageHandler {
-    constructor(client, adminList, bansRepository, msgDeleteLogger)
+    constructor(client, adminListRepository, bansRepository, msgDeleteLogger)
     {
         this.client = client;
-        this.adminList = adminList;
+        this.adminListRepository = adminListRepository;
         this.client.on('message', this.handle.bind(this));
         this.bansRepository = bansRepository;
         this.msgDeleteLogger = msgDeleteLogger;
@@ -12,7 +12,7 @@ class AdminMessageHandler {
 
     isAdmin(discordUserId)
     {
-        return this.adminList.indexOf(discordUserId) !== -1;
+        return this.adminListRepository.isAdmin(discordUserId);
     }
 
     handle(msg)

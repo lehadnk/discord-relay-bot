@@ -11,7 +11,7 @@ class App {
     }
 
     async run() {
-        const adminList = await this.adminListRepository.getList().catch(r => {
+        await this.adminListRepository.prepare().catch(r => {
             console.error("Unable to load admin list: " + r);
         });
 
@@ -19,7 +19,7 @@ class App {
             console.error("Unable to load ban list: " + r);
         });
 
-        const discordClient = new DiscordClient(this.syncChannels, adminList, this.banListRepository);
+        const discordClient = new DiscordClient(this.syncChannels, this.adminListRepository, this.banListRepository);
         discordClient.start();
     }
 }
