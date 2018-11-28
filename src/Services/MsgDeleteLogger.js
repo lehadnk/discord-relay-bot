@@ -8,7 +8,6 @@ class MsgDeleteLogger {
 
     log(msg, reason)
     {
-        console.log(msg.author.id);
         this.reasonList.set(msg.author.id, new MsgDeleteReason(
             msg.content,
             reason
@@ -17,7 +16,6 @@ class MsgDeleteLogger {
 
     getLastDeletedMessageReason(discord_user_id)
     {
-        console.log(discord_user_id);
         if (!this.reasonList.has(discord_user_id)) return null;
         return this.reasonList.get(discord_user_id);
     }

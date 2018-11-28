@@ -2,11 +2,19 @@ const warriorIds = [
     '212541475928408064', // rylaiko
 ];
 
+const mageIds = [
+
+];
+
 module.exports = {
 
     getClassColor(msg) {
         if (warriorIds.indexOf(msg.author.id) > -1) {
             return '#C79C6E';
+        }
+
+        if (mageIds.indexOf(msg.author.id) > -1) {
+            return '#69CCF0';
         }
 
         switch(msg.guild.id) {
