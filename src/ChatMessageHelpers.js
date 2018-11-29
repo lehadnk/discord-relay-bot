@@ -3,7 +3,7 @@ const warriorIds = [
 ];
 
 const mageIds = [
-
+    '206158108731506689',
 ];
 
 module.exports = {
