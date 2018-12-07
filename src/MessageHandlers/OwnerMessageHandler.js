@@ -1,4 +1,4 @@
-import ChatMessageHelpers from '../ChatMessageHelpers';
+const ChatMessageHelpers = require("../ChatMessageHelpers");
 
 class OwnerMessageHandler {
     constructor(client, adminListRepository)
