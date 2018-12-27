@@ -6,7 +6,6 @@ const App = require("./src/App");
 
 const syncChannels = [
     'cross-chat',
-    'xmog-contest',
     'cross-addons-ui',
     'crosschat-moder',
     'cross-key-tactics',
