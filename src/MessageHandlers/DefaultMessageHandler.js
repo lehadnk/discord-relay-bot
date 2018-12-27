@@ -19,6 +19,7 @@ class DefaultMessageHandler {
         if (msg.author.bot) return;
         if (this.client.user.id === msg.author.id) return;
         if (this.syncChannels.indexOf(msg.channel.name) === -1) return;
+        if (msg.channel.name === 'xmog-contest' || msg.author.id !== '207169330549358592') return;
 
         // Is user in the ban list?
         if (this.bansRepository.getBannedDiscordUserIds().indexOf(msg.author.id) !== -1) return;
