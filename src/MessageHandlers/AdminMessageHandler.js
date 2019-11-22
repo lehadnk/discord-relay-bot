@@ -77,6 +77,7 @@ class AdminMessageHandler {
                 let response = "**Crosschat ban list:**\n";
                 let chunks = ChatMessageHelpers.chunkArray(response, 10);
                 chunks.forEach((list) => {
+                    console.log(list);
                     list.forEach((ban) => {
                         response += ban;
                     });
