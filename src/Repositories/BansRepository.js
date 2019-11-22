@@ -65,9 +65,9 @@ class BansRepository {
     {
         return new Promise((resolve) => {
             this.db.all("SELECT * FROM bans", {}).then((rows) => {
-                let response = "**Crosschat ban list:**\n";
+                let response = [];
                 rows.forEach((row) => {
-                    response += row.discord_user_id + " by " + row.issuer_discord_user_name + " at " + row.issued_at+" reason: " + row.reason+"\n";
+                    response.push(row.discord_user_id + " by " + row.issuer_discord_user_name + " at " + row.issued_at+" reason: " + row.reason+"\n");
                 });
 
                 resolve(response);
