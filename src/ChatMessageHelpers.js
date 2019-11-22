@@ -44,6 +44,8 @@ module.exports = {
                 return '#C79C6E';
             case '217529277489479681': // monk
                 return '#00FF96';
+            case '415846451193839617':
+                return '#D1DEBD';
         }
 
         return '#999999'; // undefined
