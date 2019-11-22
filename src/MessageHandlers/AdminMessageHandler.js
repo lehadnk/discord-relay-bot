@@ -73,12 +73,11 @@ class AdminMessageHandler {
         }
 
         if (msg.content.match(/^\/crossbanlist$/)) {
-            this.bansRepository.getBanList().then(list => {
+            this.bansRepository.getBanList().then(banList => {
                 let response = "**Crosschat ban list:**\n";
-                let chunks = ChatMessageHelpers.chunkArray(response, 10);
-                chunks.forEach((list) => {
-                    console.log(list);
-                    list.forEach((ban) => {
+                let chunks = ChatMessageHelpers.chunkArray(banList, 10);
+                chunks.forEach((shortList) => {
+                    shortList.forEach((ban) => {
                         response += ban;
                     });
                     ChatMessageHelpers.temporaryMessage(msg.channel, response, 25000);
