@@ -20,7 +20,7 @@ module.exports = {
         switch(msg.guild.id) {
             case '207912188407578624': // priest
                 console.log('Detected priest color');
-                return '#FFFFFF';
+                return '#FFFFFC';
             case '215548192891076610': // dh
                 return '#A330C9';
             case '217529023838814208': // rogue
