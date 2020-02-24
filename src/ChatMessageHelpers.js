@@ -19,7 +19,6 @@ module.exports = {
 
         switch(msg.guild.id) {
             case '207912188407578624': // priest
-                console.log('Detected priest color');
                 return '#FFFFFC';
             case '215548192891076610': // dh
                 return '#A330C9';
@@ -49,7 +48,6 @@ module.exports = {
                 return '#D1DEBD';
         }
 
-        console.log('Detected fallback color');
         return '#999999'; // undefined
     },
 
