@@ -10,6 +10,7 @@ const syncChannels = [
     'crosschat-moder',
     'cross-key-tactics',
     'cross-leveling-bfa',
+    'cross-alpha'
 ];
 
 const dbAdapter = new DbAdapter(new Sqlite3.Database('database.db3'));
