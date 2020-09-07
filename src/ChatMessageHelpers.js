@@ -35,6 +35,8 @@ module.exports = {
         }
 
         switch(msg.guild.id) {
+            case '474036493061718016': // moder
+                return this.getCrossmoderColor(msg);
             case '207912188407578624': // priest
                 return classColors.priest;
             case '215548192891076610': // dh
@@ -133,8 +135,7 @@ module.exports = {
         let tempArray = [];
 
         for (index = 0; index < arrayLength; index += chunk_size) {
-            let myChunk = myArray.slice(index, index+chunk_size);
-            // Do something if you want with the group
+            let myChunk = myArray.slice(index, index + chunk_size);
             tempArray.push(myChunk);
         }
 
