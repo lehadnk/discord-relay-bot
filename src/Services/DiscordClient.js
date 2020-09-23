@@ -22,7 +22,7 @@ class DiscordClient {
             return;
         }
 
-        this.client.login(process.env.BOT_TOKEN);
+        this.client.login(process.env.BOT_TOKEN).then(r => console.log('The bot had started!'));
     }
 }
 
