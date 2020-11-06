@@ -43,6 +43,7 @@ class DefaultMessageHandler {
 
     isNewcomer(author)
     {
+        return false;
         if (author.lastMessage === null) {
             return true;
         }
