@@ -3,3 +3,4 @@ node_modules/
 database.db3
 database.db3-journal
 .idea/
+.DS_Store
