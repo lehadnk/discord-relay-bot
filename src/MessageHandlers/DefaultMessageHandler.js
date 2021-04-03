@@ -71,7 +71,7 @@ class DefaultMessageHandler {
 
         this.client.guilds.forEach(function (guild) {
             if (guild.id !== msg.guild.id) {
-                const channel = guild.channels.find('name', msg.channel.name);
+                const channel = guild.channels.find(c => c.name === msg.channel.name);
                 if (channel !== null) {
                     channel.send({embed}).catch(r => console.error("Unable to sync message to " + guild.name + ": " + r));
                 }
