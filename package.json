@@ -1,16 +1,19 @@
 {
   "name": "relay-bot",
-  "version": "1.0.0",
+  "version": "4.0.0",
   "description": "",
   "main": "run.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/ts-node test/startup.ts && node_modules/.bin/mocha \"./test/*.test.ts\"",
+    "compile": "node_modules/typescript/bin/tsc --listEmittedFiles",
+    "migrate": "node_modules/db-migrate/bin/db-migrate",
+    "start": "node_modules/.bin/ts-node run.ts",
+    "nergal": "node_modules/.bin/ts-node console.ts"
   },
   "author": "lehadnk <lehadnk@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "discord.js": "^12.5.2",
-    "dotenv": "^6.2.0",
-    "sqlite3": "^4.0.2"
+    "nergal": "^0.7.1",
+    "typescript": "^4.2.3"
   }
 }

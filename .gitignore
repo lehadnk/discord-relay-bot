@@ -4,3 +4,5 @@ database.db3
 database.db3-journal
 .idea/
 .DS_Store
+dev-db.db3
+prod-db.db3
