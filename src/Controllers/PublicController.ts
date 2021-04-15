@@ -19,6 +19,12 @@ export default class PublicController {
             return null
         }
 
+        let topic = this.channelConfigurationFacade.getTopicByDiscordChannelId(msg.channelId)
+        let channels = topic.discordChannels.filter(c => c.discord_channel_id != msg.channelId)
+        if (channels.length < 1) {
+            return null
+        }
+
         if (!this.postTimer.canWrite(msg.authorId, msg.channelId)) {
             console.warn(msg.authorId + " was trying to send message, but it's temp muted by flood protection")
             return null
@@ -29,9 +35,6 @@ export default class PublicController {
             console.warn(msg.authorId + " was trying to send message, but it's not allowed since it's suspicious")
             return null
         }
-
-        let topic = this.channelConfigurationFacade.getTopicByDiscordChannelId(msg.channelId)
-        let channels = topic.discordChannels.filter(c => c.discord_channel_id != msg.channelId)
 
         this.messageReplicatorFacade.replicate(msg, channels)
         return null
