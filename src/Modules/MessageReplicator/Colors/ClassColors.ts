@@ -57,7 +57,7 @@ export class ClassColors {
 
     private getCrossmoderColor(msg) {
         Object.entries(this.moderServerColors).forEach(([role, color]) => {
-            if (msg.member.roles.find(r => r.name === role)) {
+            if (msg.author.roles.find(r => r.name === role)) {
                 return color;
             }
         });
