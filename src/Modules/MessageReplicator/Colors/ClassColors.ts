@@ -55,9 +55,9 @@ export class ClassColors {
         '212541475928408064': this.classColors.warrior // rylaiko
     }
 
-    private getCrossmoderColor(msg) {
+    private getCrossmoderColor(msg: DiscordMessage) {
         Object.entries(this.moderServerColors).forEach(([role, color]) => {
-            if (msg.author.roles.find(r => r.name === role)) {
+            if (msg.object.member.roles.cache.find(r => r.name === role)) {
                 return color;
             }
         });
