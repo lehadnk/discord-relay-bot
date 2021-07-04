@@ -9,7 +9,12 @@ export class SuspiciousMessageFilter {
 
     public isSuspicious(msg: DiscordMessage)
     {
-        return this.isNewcomer(msg)
+        if (this.isNewcomer(msg)) {
+            return true
+        }
+
+        let regexp = new RegExp('http.*:\\/\\/.*steam')
+        return regexp.test(msg.message);
     }
 
     private isNewcomer(msg: DiscordMessage)
