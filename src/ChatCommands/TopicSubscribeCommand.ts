@@ -22,6 +22,11 @@ export default class TopicSubscribeCommand extends AbstractChatCommand implement
         let topic = args[1]
 
         let facade = new ChannelConfigurationFacade(AppServiceContainer.channelCache)
+        let channel = await facade.getChannel(channelId)
+        if (channel) {
+            return new DiscordControllerResponse("This channel is already subscribed to topic " + channel.topic);
+        }
+
         await facade.addChannel(message.serverId, channelId, topic)
 
         return new DiscordControllerResponse("Channel <#" + channelId + "> now listens to topic \"" + topic + "\"");

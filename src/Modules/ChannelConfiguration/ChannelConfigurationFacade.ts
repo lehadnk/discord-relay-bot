@@ -51,4 +51,9 @@ export default class ChannelConfigurationFacade {
     {
         return this.reader.getForGuild(discord_guild_id)
     }
+
+    async getChannel(discord_channel_id: string): Promise<Channel>
+    {
+        return this.reader.get(discord_channel_id)
+    }
 }
