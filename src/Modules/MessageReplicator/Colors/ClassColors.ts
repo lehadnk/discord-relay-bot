@@ -35,7 +35,7 @@ export class ClassColors {
     private serverColors = {
         '296690626244902913': this.classColors.druid, // test server
 
-        '207912188407578624': this.classColors.priest,
+        '888098294662848543': this.classColors.priest,
         '215548192891076610': this.classColors.dh,
         '736173202979422271': this.classColors.dh,
         '217529023838814208': this.classColors.rogue,
