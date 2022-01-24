@@ -13,8 +13,17 @@ export class SuspiciousMessageFilter {
             return true
         }
 
-        let regexp = new RegExp('http.*:\\/\\/.*steam')
-        return regexp.test(msg.message);
+        const regexpSteam = new RegExp('http.*:\\/\\/.*steam');
+        const regexpGift = new RegExp(/\.gift\s/);
+
+        let flag = regexpSteam.test(msg.message);
+        if (flag) {
+            return flag;
+        }
+
+        flag = regexpGift.test(msg.message);
+
+        return flag;
     }
 
     private isNewcomer(msg: DiscordMessage)
